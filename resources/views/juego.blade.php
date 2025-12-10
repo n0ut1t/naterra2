@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Naterra')</title>
-    <link rel="stylesheet" href="{{ asset('static/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     @yield('extra-css')
 </head>
 <body class="body_mapa">
@@ -19,7 +19,7 @@
 
     <!-- SIDEBAR -->
     <div class="sidebar">
-        <div class="nav-btn"><a href="{{ route('home') }}"><img src="{{ asset('static/img/homepage.png') }}"></a></div>
+        <div class="nav-btn"><a href="{{ route('mapa') }}"><img src="{{ asset('static/img/homepage.png') }}"></a></div>
         <div class="nav-btn"><a href="{{ route('perfil') }}"><img src="{{ asset('static/img/perfil.png') }}"></a></div>
         <div class="nav-btn"><a href="{{ route('ranking') }}"><img src="{{ asset('static/img/ranking.png') }}"></a></div>
         <div class="nav-btn"><a href="{{ route('repaso') }}"><img src="{{ asset('static/img/repas.png') }}"></a></div>
