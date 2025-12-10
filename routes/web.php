@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('mapa');
-})->name('mapa');
+})->name('home');
 
 Route::get('/nivells', fn() => view('nivells'))->name('nivells');
 Route::get('/perfil', fn() => view('perfil'))->name('perfil');
