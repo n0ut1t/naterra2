@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('mapa');
-});
+    return view('juego');
+})->name('mapa');
 
 Route::get('/nivells', fn() => view('nivells'))->name('nivells');
 Route::get('/perfil', fn() => view('perfil'))->name('perfil');
