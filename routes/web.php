@@ -18,6 +18,8 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/nivells', fn() => view('nivells'))->name('nivells');
+Route::get('/pregunta/{nivel}/{pregunta}', 'App\Http\Controllers\PreguntaController@show')->name('pregunta');
+Route::post('/guardar-puntos', 'App\Http\Controllers\PreguntaController@guardarPuntos')->name('guardar-puntos');
 Route::get('/perfil', fn() => view('perfil'))->name('perfil');
 Route::get('/ranking', fn() => view('ranking'))->name('ranking');
 Route::get('/repaso', fn() => view('repaso'))->name('repaso');  // crea la vista cuando quieras

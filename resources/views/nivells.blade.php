@@ -1,4 +1,4 @@
-@extends('layouts.app', [
+@extends('app', [
     'title' => 'Mapa de Nivells - Naterra'
 ])
 

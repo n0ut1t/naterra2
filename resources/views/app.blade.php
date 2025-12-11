@@ -10,7 +10,7 @@
 <body class="{{ $bodyClass ?? 'body_mapa' }}">
 
     <!-- LOGO (posición dinámica según la página) -->
-    <img src="{{ asset('static/img/logo.svg') }}" alt="Naterra" class="logo" style="{{ $logoStyle ?? '' }}">
+    <img src="{{ asset('img/logo.svg') }}" alt="Naterra" class="logo" style="{{ $logoStyle ?? '' }}">
 
     <!-- FONDO AUSTRALIA -->
     <div class="australia">
@@ -23,7 +23,7 @@
     @endif
 
     <!-- SIDEBAR / NAVBAR -->
-    <div class="sidebar">
+    <div class="sidebar" style="width: 100px; ">
         <div class="nav-btn"><a href="{{ route('home') }}"><img src="{{ asset('img/homepage.png') }}"></a></div>
         <div class="nav-btn"><a href="{{ route('perfil') }}"><img src="{{ asset('img/perfil.png') }}"></a></div>
         <div class="nav-btn"><a href="{{ route('ranking') }}"><img src="{{ asset('img/ranking.png') }}"></a></div>
@@ -36,7 +36,6 @@
         @yield('content')
     </div>
 
-    <script src="{{ asset('funcionalidades.js') }}"></script>
-    @yield('scripts')
+    @stack('scripts')
 </body>
 </html>

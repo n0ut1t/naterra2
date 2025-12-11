@@ -1,15 +1,15 @@
-@extends('layouts.app', [
+@extends('app', [
     'title' => 'Ranking - Naterra',
     'logoStyle' => 'left: 770px; top: 0px;',
     'bodyClass' => 'body_mapa'
 ])
 
 @section('content')
-    <div class="rankings" style="z-index: 9999;">
+    <div class="rankings" style="z-index: 9999; height: 600px;">
         <div class="top3">
-            <div class="top-circle"><img src="{{ asset('static/img/top1.jpg') }}"><div class="top-pos">1</div></div>
-            <div class="top-circle"><img src="{{ asset('static/img/top2.jpg') }}"><div class="top-pos">2</div></div>
-            <div class="top-circle"><img src="{{ asset('static/img/top3.jpg') }}"><div class="top-pos">3</div></div>
+            <div class="top-circle"><img src="{{ asset('img/top1.jpg') }}"><div class="top-pos">1</div></div>
+            <div class="top-circle"><img src="{{ asset('img/top2.jpg') }}"><div class="top-pos">2</div></div>
+            <div class="top-circle"><img src="{{ asset('img/top3.jpg') }}"><div class="top-pos">3</div></div>
         </div>
 
         <div class="ranking-box">
@@ -25,12 +25,12 @@
 
     <div class="right-bar">
         <div class="user">
-            <img src="{{ asset('static/img/avatar.png') }}" class="avatar">
+            <img src="{{ asset('img/avatar.png') }}" class="avatar">
             <div class="user-name">Explorador Max</div>
         </div>
         <div class="ship">
             <div class="ship-title">La teva nau</div>
-            <img src="{{ asset('static/img/mi_nave.png') }}" class="ship-img">
+            <img src="{{ asset('img/mi_nave.png') }}" class="ship-img">
         </div>
     </div>
 
