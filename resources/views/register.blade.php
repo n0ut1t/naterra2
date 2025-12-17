@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Inicia sessió - Naterra</title>
-    <link rel="stylesheet" href="{{ asset('static/main.css') }}" />
-</head>
+    <title>Login</title>
+<link rel="stylesheet" href="{{ asset('static/main.css') }}" /></head>
 <body>
 
     <img src="{{ asset('img/logo.svg') }}" alt="Naterra" class="logo" >
@@ -23,14 +22,29 @@
     </div>
 
     <div class="form">
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('register') }}">
             @csrf
 
-            @if($errors->any())
-                <div style="color: #ff6b6b; text-align: center; margin-bottom: 1rem;">
-                    {{ $errors->first() }}
-                </div>
-            @endif
+            <label for="nom">Nom</label>
+            <input 
+                type="text" 
+                id="nom" 
+                name="name" 
+                value="{{ old('name') }}" 
+                placeholder="Ex: Marta" 
+                required 
+                autofocus 
+            />
+
+            <label for="cognom">Cognom</label>
+            <input 
+                type="text" 
+                id="cognom" 
+                name="lastname" 
+                value="{{ old('lastname') }}" 
+                placeholder="Ex: Pons" 
+                required 
+            />
 
             <label for="email">Correu electrònic</label>
             <input 
@@ -38,9 +52,8 @@
                 id="email" 
                 name="email" 
                 value="{{ old('email') }}" 
-                placeholder="tu@naterrra.cat" 
+                placeholder="marta@naterrra.cat" 
                 required 
-                autofocus 
             />
 
             <label for="pass">Contrasenya</label>
@@ -48,15 +61,16 @@
                 type="password" 
                 id="pass" 
                 name="password" 
-                placeholder="••••••••" 
+                placeholder="Mínim 8 caràcters" 
                 required 
+                autocomplete="new-password" 
             />
             
-            <button type="submit" class="btn">Iniciar sessió</button>
+            <button type="submit" class="btn">Crear compte</button>
         </form>
 
         <div class="footer">
-            No tens compte? <a href="{{ route('register') }}">Registra't</a>
+            Ja tens compte? <a href="{{ route('login') }}">Inicia sessió</a>
         </div>
     </div>
 
