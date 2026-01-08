@@ -24,7 +24,7 @@ Route::get('/', function () {
 
 // 1. Mostrar Login
 Route::get('/login', function () {
-    return view('login');
+    return view(view: 'login');
 })->name('login');
 
 // 2. Processar Login
