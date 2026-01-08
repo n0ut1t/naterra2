@@ -35,15 +35,6 @@
         @endforeach
     </div>
 
-    <!-- IMAGEN REFERENCIA (rectángulo con foto) -->
-    <div style="background: rgba(255,255,255,.1); border: 2px solid rgba(255,172,214,.3); border-radius: 10px; height: 120px; width: 100%; display: flex; align-items: center; justify-content: center; margin: 15px 0;">
-        @if(isset($pregActual['foto']))
-            <img src="{{ asset($pregActual['foto']) }}" alt="Referència" style="max-height: 100%; max-width: 100%; border-radius: 8px; object-fit: cover;" onerror="this.src='{{ asset('img/logo.svg') }}'; this.style.height='50px';">
-        @else
-            <span style="color: #fff; opacity: 0.5;">Sense imatge</span>
-        @endif
-    </div>
-
     <!-- BOTONES DE NAVEGACIÓN -->
     <div style="display: flex; gap: 10px; justify-content: center;">
         <a href="{{ route('pregunta', [$capitulo, max(1, $numPregunta - 1)]) }}"><button style="background: #FFACD6; color: #000; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Anterior</button></a>
@@ -128,14 +119,13 @@ function verificarRespuesta(indiceSeleccionado) {
                 mostrarResultadoFinal();
             }
         }, 1500);
+        
     } else {
         // ❌ RESPUESTA INCORRECTA - Rojo
         buttons[indiceSeleccionado].style.background = '#FF6B6B';
         buttons[indiceSeleccionado].style.borderColor = '#AA0000';
         buttons[indiceSeleccionado].style.color = '#fff';
-        
-        buttons[indiceCorrecta].style.background = '#90EE90';
-        buttons[indiceCorrecta].style.borderColor = '#00AA00';
+
         
         vidas--;
         actualizarVidas();
