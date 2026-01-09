@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App\Models\User; // Necessari per crear usuaris nous
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +15,9 @@ use App\Models\User; // Necessari per crear usuaris nous
 // --- PÀGINA D'INICI (Si estàs loguejat -> Mapa, si no -> Login) ---
 Route::get('/', function () {
     if (Auth::check()) {
-        return view('mapa');
+        // Opcional: Si ja estàs dins, potser vols anar al mapa directament
+        // o tornar a veure la història. De moment ho deixem al mapa.
+        return redirect()->route('mapa');
     }
     return redirect()->route('login');
 })->name('home');
@@ -24,7 +26,7 @@ Route::get('/', function () {
 
 // 1. Mostrar Login
 Route::get('/login', function () {
-    return view(view: 'login');
+    return view('login');
 })->name('login');
 
 // 2. Processar Login
@@ -36,7 +38,10 @@ Route::post('/login', function (Request $request) {
 
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
-        return redirect()->intended('mapa'); // Et porta al mapa
+        
+        // --- CANVI IMPORTANT AQUÍ ---
+        // Abans anava a 'mapa', ara va a 'historia1'
+        return redirect()->route('historia1'); 
     }
 
     return back()->withErrors([
@@ -46,7 +51,7 @@ Route::post('/login', function (Request $request) {
 
 // 3. Mostrar Registre
 Route::get('/register', function () {
-    return view('register'); // Assegura't que tens register.blade.php
+    return view('register');
 })->name('register');
 
 // 4. Processar Registre (Crear usuari)
@@ -65,10 +70,12 @@ Route::post('/register', function (Request $request) {
         'password' => Hash::make($request->password),
     ]);
 
-    // El loguegem automàticament i l'enviem al mapa
+    // El loguegem automàticament
     Auth::login($user);
 
-    return redirect()->route('home');
+    // --- CANVI IMPORTANT TAMBÉ AQUÍ ---
+    // Quan es registrin, també els enviem a la història
+    return redirect()->route('historia1');
 })->name('register.store');
 
 // 5. Logout (Sortir)
@@ -83,6 +90,11 @@ Route::post('/logout', function (Request $request) {
 // --- RUTES DEL JOC (Protegides: només si estàs loguejat) ---
 Route::middleware('auth')->group(function () {
     
+    // Ruta de la Història (L'he mogut aquí perquè estigui protegida)
+    Route::get('/historia1', function () {
+        return view('historia1');
+    })->name('historia1');
+
     Route::get('/mapa', function () {
         return view('mapa');
     })->name('mapa');
@@ -94,7 +106,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/repaso', fn() => view('repaso'))->name('repaso');
     Route::get('/config', fn() => view('config'))->name('config');
 
-    // Rutes amb controlador (assegura't que tens el PreguntaController creat)
+    // Rutes amb controlador
     Route::get('/pregunta/{nivel}/{pregunta}', 'App\Http\Controllers\PreguntaController@show')->name('pregunta');
     Route::post('/guardar-puntos', 'App\Http\Controllers\PreguntaController@guardarPuntos')->name('guardar-puntos');
 });
