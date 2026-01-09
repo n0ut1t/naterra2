@@ -15,3 +15,4 @@
     <div id="p9" class="chapter"><a href="{{ route('pregunta', [1, 9]) }}">9</a></div>
     <div id="p10" class="chapter"><a href="{{ route('pregunta', [1, 10]) }}">10</a></div>
 @endsection
+

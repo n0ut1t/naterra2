@@ -49,3 +49,4 @@ class PreguntaController extends Controller
         return response()->json(['success' => false, 'mensaje' => 'Usuario no autenticado'], 401);
     }
 }
+

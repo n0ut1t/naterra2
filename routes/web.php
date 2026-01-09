@@ -89,12 +89,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/nivells', fn() => view('nivells'))->name('nivells');
     
+    Route::get('/joc/{nivel}/{pregunta}', 'App\Http\Controllers\PreguntaController@show')->name('pregunta');
+    
     Route::get('/perfil', fn() => view('perfil'))->name('perfil');
     Route::get('/ranking', fn() => view('ranking'))->name('ranking');
     Route::get('/repaso', fn() => view('repaso'))->name('repaso');
     Route::get('/config', fn() => view('config'))->name('config');
 
     // Rutes amb controlador (assegura't que tens el PreguntaController creat)
-    Route::get('/pregunta/{nivel}/{pregunta}', 'App\Http\Controllers\PreguntaController@show')->name('pregunta');
     Route::post('/guardar-puntos', 'App\Http\Controllers\PreguntaController@guardarPuntos')->name('guardar-puntos');
 });

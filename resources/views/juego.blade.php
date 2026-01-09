@@ -79,7 +79,15 @@ try {
     puntuacio = 0;
 }
 
+// Intentar cargar vidas guardadas, si no, inicializar en 3
 let vidas = 3;
+try {
+    const vidasSaved = localStorage.getItem('vidas_c{{ $capitulo }}');
+    vidas = vidasSaved ? parseInt(vidasSaved) : 3;
+} catch(e) {
+    vidas = 3;
+}
+
 let preguntaRespondida = false;
 const indiceCorrecta = parseInt('{{ $pregActual['correcta'] }}');
 
@@ -112,45 +120,41 @@ function verificarRespuesta(indiceSeleccionado) {
         puntuacio += 10;
         actualizarPuntuacio();
         
-        setTimeout(() => {
-            if ({{ $hasNext ? 'true' : 'false' }}) {
-                window.location.href = '{{ route("pregunta", [$capitulo, $numPregunta + 1]) }}';
-            } else {
+        // Deshabilitar todos los botones de respuesta después de responder
+        buttons.forEach(btn => btn.disabled = true);
+        
+        // Si es la última pregunta, mostrar resultado final automáticamente
+        if (!{{ $hasNext ? 'true' : 'false' }}) {
+            setTimeout(() => {
                 mostrarResultadoFinal();
-            }
-        }, 1500);
+            }, 1500);
+        }
+        // Si no es la última, el usuario debe hacer clic en "Següent" manualmente
         
     } else {
         // ❌ RESPUESTA INCORRECTA - Rojo
         buttons[indiceSeleccionado].style.background = '#FF6B6B';
         buttons[indiceSeleccionado].style.borderColor = '#AA0000';
         buttons[indiceSeleccionado].style.color = '#fff';
-
         
         vidas--;
         actualizarVidas();
         
+        // Deshabilitar todos los botones de respuesta
         buttons.forEach(btn => btn.disabled = true);
         
         if (vidas === 0) {
             setTimeout(() => {
-                alert('¡Game Over! Te has quedado sin vidas.');
+                alert('Game Over! T\'has quedat sense vides.');
                 try {
                     localStorage.removeItem('puntuacio_c{{ $capitulo }}');
+                    localStorage.removeItem('vidas_c{{ $capitulo }}');
                 } catch(e) {}
                 window.location.href = '{{ route("nivells") }}';
             }, 1500);
-        } else {
-            setTimeout(() => {
-                preguntaRespondida = false;
-                buttons.forEach(btn => btn.disabled = false);
-                buttons.forEach(btn => {
-                    btn.style.background = 'rgba(255,255,255,.1)';
-                    btn.style.borderColor = 'rgba(255,172,214,.3)';
-                    btn.style.color = '#fff';
-                });
-            }, 2000);
         }
+        // Si quedan vidas, el usuario debe hacer clic en "Següent" o "Anterior" para continuar
+        // NO se muestra la respuesta correcta para que aprendan
     }
 }
 
@@ -159,6 +163,12 @@ function actualizarVidas() {
     const elemento = document.getElementById('vides');
     if (elemento) {
         elemento.textContent = vidaTexto;
+        // Guardar vidas en localStorage
+        try {
+            localStorage.setItem('vidas_c{{ $capitulo }}', vidas);
+        } catch(e) {
+            console.log('No se pudo guardar vidas');
+        }
     }
 }
 
@@ -197,6 +207,7 @@ function mostrarResultadoFinal() {
         // Limpiar localStorage cuando termina el capítulo
         try {
             localStorage.removeItem('puntuacio_c{{ $capitulo }}');
+            localStorage.removeItem('vidas_c{{ $capitulo }}');
         } catch(e) {}
         
         const ranking = puntuacio >= 80 ? '⭐⭐⭐ EXCEL·LENT!' : puntuacio >= 60 ? '⭐⭐ BON' : puntuacio >= 40 ? '⭐ ACCEPTABLE' : '❌ MÉS PRÀCTICA';
@@ -212,12 +223,11 @@ function mostrarResultadoFinal() {
                 </div>
                 <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center;">
                     <a href="{{ route('pregunta', [$capitulo, 1]) }}" style="background: #FFF30E; color: #000; padding: 15px 40px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 18px; display: inline-block;">Reintentar Capítol</a>
-                    <a href="{{ route('nivells') }}" style="background: #28428C; color: #fff; padding: 15px 40px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 18px; display: inline-block;">Tornar a Capítols</a>
+                    <a href="{{ route('mapa') }}" style="background: #28428C; color: #fff; padding: 15px 40px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 18px; display: inline-block;">Tornar a Capitols</a>
                 </div>
             </div>
         `;
     }
 }
-
 </script>
 @endpush
