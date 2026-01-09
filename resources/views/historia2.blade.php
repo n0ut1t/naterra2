@@ -10,26 +10,28 @@
     <style>
         /* --- ESTIL DEL FONS (EL PLANETA) --- */
         body {
+            /* Mantenim la teva imatge planeta.png */
             background: url("{{ asset('img/planeta.png') }}") no-repeat center center fixed;
             background-size: cover;
             color: white;
             font-family: 'Arial', sans-serif;
             margin: 0;
-            min-height: 100vh;
+            /* CANVI CLAU: Alçada fixa i sense scroll */
+            height: 100vh; 
+            width: 100vw;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-evenly; /* Distribueix l'espai millor */
             align-items: center;
             text-align: center;
-            overflow-x: hidden;
+            overflow: hidden; /* Adéu scroll */
             position: relative;
         }
 
-        /* LOGO */
+        /* LOGO (Reduït per guanyar espai) */
         .logo {
-            width: 100px; /* Una mica més petit */
-            margin-top: 20px;
-            margin-bottom: 10px;
+            width: 80px; 
+            margin-top: 10px;
             z-index: 2;
             filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
         }
@@ -40,11 +42,11 @@
             flex-direction: column;
             align-items: center;
             z-index: 2;
-            margin-bottom: 20px;
+            margin-bottom: 0;
         }
 
         .astronauta {
-            width: 120px;
+            width: 90px; /* Reduït de 120px a 90px */
             animation: flotar 5s infinite ease-in-out;
             filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
         }
@@ -57,64 +59,63 @@
         .missatge-astronauta {
             background-color: white;
             color: black;
-            padding: 8px 20px;
-            border-radius: 20px;
+            padding: 5px 15px; /* Una mica més compacte */
+            border-radius: 15px;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 0.9rem;
             position: relative;
-            margin-top: -15px;
-            margin-bottom: 15px;
+            margin-top: -10px;
+            margin-bottom: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
         /* TEXT PRINCIPAL */
         .text-historia2 {
             max-width: 650px;
-            font-size: 1.2em;
-            margin-bottom: 20px;
-            padding: 20px;
+            font-size: 1rem; /* Text lleugerament més petit */
+            padding: 15px;
             z-index: 2;
-            line-height: 1.5;
+            line-height: 1.4;
             text-shadow: 2px 2px 4px #000000; 
-            background-color: rgba(0, 0, 0, 0.4); /* Fons semi-transparent */
+            background-color: rgba(0, 0, 0, 0.4);
             border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* --- LES PECES ESCAMPADES PEL PLANETA --- */
+        /* --- LES PECES ESCAMPADES --- */
         .nau-peces-container {
             position: relative;
             width: 100%;
-            max-width: 800px; /* Amplada màxima on cauran les peces */
-            height: 200px; /* Espai vertical per distribuir-les */
-            margin-bottom: 30px;
+            max-width: 600px; 
+            height: 120px; /* Reduït de 200px a 120px */
+            margin-bottom: 10px;
             z-index: 1;
         }
 
         .nau-part {
-            position: absolute; /* Això ens permet moure-les lliurement */
-            width: 80px;
+            position: absolute;
+            width: 60px; /* Reduït de 80px a 60px */
             filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.8));
             opacity: 0.9;
             transition: transform 0.3s ease;
         }
 
-        /* Posicions específiques per cada peça */
+        /* Posicions ajustades al nou contenidor més petit */
         .esquerra {
-            top: 20%;
-            left: 10%;
+            top: 10%;
+            left: 15%;
             transform: rotate(-15deg);
         }
 
         .inferior {
-            bottom: 0%;
+            bottom: 5%;
             left: 50%;
-            transform: translateX(-50%) rotate(5deg); /* Centrada a baix */
+            transform: translateX(-50%) rotate(5deg);
         }
 
         .dreta {
-            top: 30%;
-            right: 10%;
+            top: 20%;
+            right: 15%;
             transform: rotate(20deg);
         }
 
@@ -124,27 +125,25 @@
             z-index: 10;
         }
 
-        /* --- BOTÓ FINAL (Més petit i transparent) --- */
+        /* --- BOTÓ FINAL (Els teus colors blaus) --- */
         .btn-start {
             z-index: 10;
-            /* Ara és molt més transparent, similar al text */
             background-color: rgba(0, 0, 0, 0.4); 
             color: white;
             /* Mida reduïda */
-            padding: 10px 30px;
-            font-size: 1.1rem;
+            padding: 8px 25px;
+            font-size: 1rem;
             font-weight: bold;
-            /* Borde més fi */
+            /* Els teus colors originals */
             border: 2px solid #2e92cc;
             border-radius: 30px;
             cursor: pointer;
             text-decoration: none;
-            /* Brillantor més subtil */
             box-shadow: 0 0 10px rgba(46, 146, 204, 0.4);
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .btn-start:hover {
@@ -167,7 +166,7 @@
     
     <div class="text-historia2">
         A partir d’ara hauràs de superar nivells plens de reptes i proves, i durant aquest camí també aprendràs coses noves;<br>
-        si aconsegueixes trobar totes les peces i arreglar la nau, podràs tornar a l’espai i completar la teva missió! Bona sort Capità!<br><br>
+        si aconsegueixes trobar totes les peces i arreglar la nau, podràs tornar a l’espai i completar la teva missió! Bona sort Capità!<br>
     </div>
 
     <div class="nau-peces-container">
