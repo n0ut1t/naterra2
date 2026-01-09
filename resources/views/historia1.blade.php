@@ -122,9 +122,7 @@
 
     <img src="{{ asset('img/nave.png') }}" alt="Nau espacial" class="nau">
 
-    <a href="{{ route('mapa') }}" class="btn-continuar">
-        Començar Missió
-    </a>
+    <a href="{{ route('historia2') }}" class="btn-continuar"> Seguent</a>
 
 </body>
 </html>

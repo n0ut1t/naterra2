@@ -83,17 +83,23 @@ Route::post('/logout', function (Request $request) {
     Auth::logout();
     $request->session()->invalidate();
     $request->session()->regenerateToken();
-    return redirect('/login');
+    return redirect(to: '/login');
 })->name('logout');
 
 
 // --- RUTES DEL JOC (Protegides: només si estàs loguejat) ---
 Route::middleware('auth')->group(function () {
     
-    // Ruta de la Història (L'he mogut aquí perquè estigui protegida)
+    // Ruta de la Història 1
     Route::get('/historia1', function () {
         return view('historia1');
     })->name('historia1');
+
+    // --- NOVA RUTA: HISTÒRIA 2 (AFEGEIX AIXÒ) ---
+    Route::get('/historia2', function () {
+        return view('historia2');
+    })->name('historia2');
+    // --------------------------------------------
 
     Route::get('/mapa', function () {
         return view('mapa');
