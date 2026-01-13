@@ -88,8 +88,8 @@
         }
 
         .btn-continuar:hover {
-            background-color: rgba(46, 204, 113, 0.2);
-            box-shadow: 0 0 20px rgba(46, 204, 113, 0.6);
+            background-color: rgba(46, 117, 204, 0.3);
+            box-shadow: 0 0 20px rgba(46, 172, 204, 0.8);
             transform: scale(1.05);
         }
     </style>
