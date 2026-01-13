@@ -159,8 +159,7 @@
 
     <img src="{{ asset('img/logo.svg') }}" alt="Naterra" class="logo">
 
-    <div class="astronauta-container">
-        <div class="missatge-astronauta">A l’aventura!</div>
+    <div class="astronauta-container" style="position: absolute !important; bottom: 70px !important; left: calc(50% - 250px) !important; z-index: 999; width: auto; height: auto;">        
         <img src="{{ asset('img/astronauta.png') }}" alt="Astronauta" class="astronauta">
     </div>
     
