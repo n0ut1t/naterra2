@@ -104,7 +104,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/joc/{nivel}/{pregunta}', 'App\Http\Controllers\PreguntaController@show')->name('pregunta');
     
     Route::get('/perfil', fn() => view('perfil'))->name('perfil');
-    Route::get('/ranking', fn() => view('ranking'))->name('ranking');
+    Route::get('/ranking', [App\Http\Controllers\RankingController::class, 'index'])->name('ranking');
+    Route::get('/ranking/data', [App\Http\Controllers\RankingController::class, 'fetchData'])->name('ranking.data');
     Route::get('/repaso', fn() => view('repaso'))->name('repaso');
     Route::get('/config', fn() => view('config'))->name('config');
 

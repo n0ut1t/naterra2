@@ -38,12 +38,24 @@ class PreguntaController extends Controller
     public function guardarPuntos()
     {
         $capitulo = request('capitulo');
-        $puntos = request('puntos');
+        $puntos = request('puntos'); // Puntos totales conseguidos en este intento/capítulo
         
         if (auth()->check()) {
-            // Guardar en la base de datos cuando implementes la tabla
-            // Por ahora solo retorna éxito
-            return response()->json(['success' => true, 'mensaje' => 'Puntos guardados']);
+            $user = auth()->user();
+            // Sumar los puntos obtenidos a la puntuación global del usuario
+            if ($puntos > 0) {
+                 if (is_null($user->puntuacion)) {
+                     $user->puntuacion = 0;
+                     $user->save();
+                 }
+                 $user->increment('puntuacion', $puntos);
+            }
+            
+            return response()->json([
+                'success' => true, 
+                'mensaje' => 'Puntos guardados correctamente',
+                'nuevo_total' => $user->puntuacion
+            ]);
         }
         
         return response()->json(['success' => false, 'mensaje' => 'Usuario no autenticado'], 401);

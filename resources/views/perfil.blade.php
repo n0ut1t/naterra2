@@ -26,12 +26,7 @@
             <div class="ship-title">La teva nau</div>
             <img src="{{ asset('img/mi_nave.png') }}" class="ship-img">
         </div>
-        <div class="ranking" style="margin-top: 0;">
-            <h3>Top Exploradors</h3>
-            <div class="rank-row"><span class="rank-name">1. LunaQueen</span><span class="rank-score">12.450</span></div>
-            <div class="rank-row"><span class="rank-name">2. StarPilot</span><span class="rank-score">11.890</span></div>
-            <div class="rank-row"><span class="rank-name">3. CosmoKid</span><span class="rank-score">10.720</span></div>
-        </div>
+        @include('partials.ranking_widget')
     </div>
 
     <div class="repas-circle">REPÀS</div>

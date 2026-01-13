@@ -56,12 +56,7 @@
             <div class="ship-title">La teva nau</div>
             <img src="{{ asset('img/mi_nave.png') }}" class="ship-img" alt="Nau">
         </div>
-        <div class="ranking" style="margin-top: 0;">
-            <h3>Top Exploradors</h3>
-            <div class="rank-row"><span class="rank-name">1. LunaQueen</span><span class="rank-score">12.450</span></div>
-            <div class="rank-row"><span class="rank-name">2. StarPilot</span><span class="rank-score">11.890</span></div>
-            <div class="rank-row"><span class="rank-name">3. CosmoKid</span><span class="rank-score">10.720</span></div>
-        </div>
+        @include('partials.ranking_widget')
     </div>
 
     <div class="repas-circle">REPÀS</div>
@@ -119,6 +114,7 @@ function verificarRespuesta(indiceSeleccionado) {
         buttons[indiceSeleccionado].style.color = '#000';
         puntuacio += 10;
         actualizarPuntuacio();
+        guardarPuntos(10); // Guardar 10 puntos inmediatamente
         
         // Deshabilitar todos los botones de respuesta después de responder
         buttons.forEach(btn => btn.disabled = true);
@@ -188,21 +184,8 @@ function mostrarResultadoFinal() {
     const container = document.querySelector('.puzzle');
     if (container) {
         // Guardar puntos en la base de datos
-        fetch('{{ route("guardar-puntos") }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
-            },
-            body: JSON.stringify({
-                capitulo: {{ $capitulo }},
-                puntos: puntuacio
-            })
-        }).then(r => r.json()).then(data => {
-            console.log('Puntos guardados:', data);
-        }).catch(e => {
-            console.error('Error guardando puntos:', e);
-        });
+        // Ya no guardamos puntos al final porque se guardan pregunta a pregunta
+        // fetch('{{ route("guardar-puntos") }}', ...
         
         // Limpiar localStorage cuando termina el capítulo
         try {
@@ -228,6 +211,23 @@ function mostrarResultadoFinal() {
             </div>
         `;
     }
+}
+function guardarPuntos(puntosGanados) {
+    fetch('{{ route("guardar-puntos") }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
+        },
+        body: JSON.stringify({
+            capitulo: {{ $capitulo }},
+            puntos: puntosGanados
+        })
+    }).then(r => r.json()).then(data => {
+        console.log('Puntos guardados:', data);
+    }).catch(e => {
+        console.error('Error guardando puntos:', e);
+    });
 }
 </script>
 @endpush
