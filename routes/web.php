@@ -38,10 +38,10 @@ Route::post('/login', function (Request $request) {
 
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
-        
+
         // --- CANVI IMPORTANT AQUÍ ---
         // Abans anava a 'mapa', ara va a 'historia1'
-        return redirect()->route('historia1'); 
+        return redirect()->route('historia1');
     }
 
     return back()->withErrors([
@@ -89,7 +89,7 @@ Route::post('/logout', function (Request $request) {
 
 // --- RUTES DEL JOC (Protegides: només si estàs loguejat) ---
 Route::middleware('auth')->group(function () {
-    
+
     // Ruta de la Història (L'he mogut aquí perquè estigui protegida)
     Route::get('/historia1', function () {
         return view('historia1');
@@ -100,10 +100,11 @@ Route::middleware('auth')->group(function () {
     })->name('mapa');
 
     Route::get('/nivells', fn() => view('nivells'))->name('nivells');
-    
+
     Route::get('/joc/{nivel}/{pregunta}', 'App\Http\Controllers\PreguntaController@show')->name('pregunta');
-    
+
     Route::get('/perfil', fn() => view('perfil'))->name('perfil');
+    Route::post('/perfil/foto', [App\Http\Controllers\ProfileController::class, 'uploadPhoto'])->name('perfil.foto');
     Route::get('/ranking', [App\Http\Controllers\RankingController::class, 'index'])->name('ranking');
     Route::get('/ranking/data', [App\Http\Controllers\RankingController::class, 'fetchData'])->name('ranking.data');
     Route::get('/repaso', fn() => view('repaso'))->name('repaso');

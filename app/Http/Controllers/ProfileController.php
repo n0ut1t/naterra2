@@ -57,4 +57,32 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    /**
+     * Upload and update the user's profile picture.
+     */
+    public function uploadPhoto(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'foto' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'],
+        ]);
+
+        $user = $request->user();
+
+        // Delete old photo if exists
+        if ($user->icono_perfil) {
+            $oldPath = storage_path('app/public/' . $user->icono_perfil);
+            if (file_exists($oldPath)) {
+                unlink($oldPath);
+            }
+        }
+
+        // Store new photo
+        $path = $request->file('foto')->store('avatars', 'public');
+
+        $user->icono_perfil = $path;
+        $user->save();
+
+        return Redirect::route('perfil')->with('status', 'foto-actualizada');
+    }
 }

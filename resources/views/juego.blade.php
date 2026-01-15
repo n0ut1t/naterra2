@@ -49,17 +49,15 @@
 
     <div class="right-bar">
         <div class="user" style="margin-top: 0; height: 60px;">
-            <img src="{{ asset('img/avatar.png') }}" class="avatar" alt="Avatar">
-            <div class="user-name">Explorador Max</div>
-        </div>
-        <div class="ship" style="margin-top: 0px; height: 275px;">
-            <div class="ship-title">La teva nau</div>
-            <img src="{{ asset('img/mi_nave.png') }}" class="ship-img" alt="Nau">
+            <img src="{{ Auth::user()->avatar_url }}" class="avatar" alt="Avatar" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+            <div class="user-name">{{ Auth::user()->name }}</div>
         </div>
         @include('partials.ranking_widget')
     </div>
 
-    <div class="repas-circle">REPÀS</div>
+    <a href="{{ route('repaso') }}" style="text-decoration: none;">
+        <div class="repas-circle" role="button" tabindex="0">REPÀS</div>
+    </a>
 
 @endsection
 

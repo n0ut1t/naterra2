@@ -22,7 +22,20 @@ class User extends Authenticatable
         'email',
         'password',
         'puntuacion',
+        'icono_perfil',
     ];
+
+    /**
+     * Get the user's avatar URL.
+     * Returns the profile picture if set, otherwise returns default avatar.
+     */
+    public function getAvatarUrlAttribute(): string
+    {
+        if ($this->icono_perfil) {
+            return asset('storage/' . $this->icono_perfil);
+        }
+        return asset('img/avatar.png');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
