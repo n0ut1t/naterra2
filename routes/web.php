@@ -94,6 +94,21 @@ Route::middleware('auth')->group(function () {
     Route::get('/historia1', function () {
         return view('historia1');
     })->name('historia1');
+    
+     // Ruta de la Història 2
+    Route::get('/historia2', function () {
+        return view('historia2');
+    })->name('historia2');
+
+    // --- NOVES RUTES FINAL (AFEGIDES AQUÍ) ---
+    Route::get('/final1', function () {
+        return view('final1');
+    })->name('final1');
+
+    Route::get('/final2', function () {
+        return view('final2');
+    })->name('final2');
+    // ----------------------------------------
 
     Route::get('/mapa', function () {
         return view('mapa');
