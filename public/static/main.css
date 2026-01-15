@@ -479,8 +479,9 @@ body.historia-2 {
   min-height: 100vh;
 
   /* Fons senzill */
-  background: url("E:/2nDAW/PROJECT/Naterra/static/img/planeta.png") no-repeat center center fixed;
-  background-size: cover;     /* ocupa tot l'espai de la pantalla */
+ /* La barra inicial / indica que busqui des de l'arrel de 'public' */
+  background: url('/img/planeta.png') no-repeat center fixed;
+  background-size: cover;
   background-color: #0a0e1a;  /* color de seguretat per si no carrega */
   
   color: #fff;
@@ -776,7 +777,7 @@ body.configuracio {
   min-height: 100vh;
 
   /* Fons amb el planeta */
-  background: url("E:/2nDAW/PROJECT/Naterra/static/img/planeta.png") no-repeat center center fixed;
+  background: url('/img/planeta.png') no-repeat center fixed;
   background-size: cover;
   background-color: #0a0e1a;
   
@@ -967,17 +968,28 @@ input:checked + .slider:before {
 
 /* Final Missatge */
 .final-missatge {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 20px;
-  padding: 50px 60px;
-  width: 90%;
-  max-width: 700px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Això centra el div perfectament */
+    
+  background-color: rgba(0, 0, 0, 0.8); /* Fons negre semi-transparent */
+  border: 2px solid #ffacd6; /* Borde rosa com la resta del joc */
+  border-radius: 15px;
+  padding: 40px;
+  width: 60%;
+  max-width: 800px;
   text-align: center;
-  color: #ffffff;
-  margin-top: 120px;
-  box-shadow: 0 0 30px rgba(192, 132, 252, 0.3);
+  color: white;
+  z-index: 10; /* Per assegurar que quedi per sobre del mapa */
+}
+
+/* Opcional: Per separar els botons */
+.botons-final {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
 .final-missatge h2 {

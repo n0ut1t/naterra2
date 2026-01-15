@@ -78,7 +78,7 @@
             padding: 12px 30px;
             font-size: 1.1rem;
             font-weight: bold;
-            border: 2px solid #2ecc71;
+            border: 2px solid #2e78cc;
             border-radius: 12px;
             cursor: pointer;
             text-decoration: none;

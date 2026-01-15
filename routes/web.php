@@ -15,8 +15,6 @@ use App\Models\User;
 // --- PÀGINA D'INICI (Si estàs loguejat -> Mapa, si no -> Login) ---
 Route::get('/', function () {
     if (Auth::check()) {
-        // Opcional: Si ja estàs dins, potser vols anar al mapa directament
-        // o tornar a veure la història. De moment ho deixem al mapa.
         return redirect()->route('mapa');
     }
     return redirect()->route('login');
@@ -38,9 +36,7 @@ Route::post('/login', function (Request $request) {
 
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
-        
-        // --- CANVI IMPORTANT AQUÍ ---
-        // Abans anava a 'mapa', ara va a 'historia1'
+        // Redirigim a la història inicial
         return redirect()->route('historia1'); 
     }
 
@@ -56,25 +52,20 @@ Route::get('/register', function () {
 
 // 4. Processar Registre (Crear usuari)
 Route::post('/register', function (Request $request) {
-    // Validem les dades
     $request->validate([
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required|string|min:8',
     ]);
 
-    // Creem l'usuari a la Base de Dades
     $user = User::create([
         'name' => $request->name,
         'email' => $request->email,
         'password' => Hash::make($request->password),
     ]);
 
-    // El loguegem automàticament
     Auth::login($user);
 
-    // --- CANVI IMPORTANT TAMBÉ AQUÍ ---
-    // Quan es registrin, també els enviem a la història
     return redirect()->route('historia1');
 })->name('register.store');
 
@@ -83,7 +74,7 @@ Route::post('/logout', function (Request $request) {
     Auth::logout();
     $request->session()->invalidate();
     $request->session()->regenerateToken();
-    return redirect(to: '/login');
+    return redirect('/login');
 })->name('logout');
 
 
@@ -95,11 +86,20 @@ Route::middleware('auth')->group(function () {
         return view('historia1');
     })->name('historia1');
 
-    // --- NOVA RUTA: HISTÒRIA 2 (AFEGEIX AIXÒ) ---
+    // Ruta de la Història 2
     Route::get('/historia2', function () {
         return view('historia2');
     })->name('historia2');
-    // --------------------------------------------
+
+    // --- NOVES RUTES FINAL (AFEGIDES AQUÍ) ---
+    Route::get('/final1', function () {
+        return view('final1');
+    })->name('final1');
+
+    Route::get('/final2', function () {
+        return view('final2');
+    })->name('final2');
+    // ----------------------------------------
 
     Route::get('/mapa', function () {
         return view('mapa');

@@ -6,7 +6,6 @@
 
 @section('content')
 <div class="puzzle" style="height: 600px; width: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 20px;">
-    <!-- HEADER: TITULO, VIDAS Y PUNTOS -->
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <h2 style="color: #FFF30E; margin: 0; font-size: 1.3rem;">C{{ $capitulo }} - P{{ $numPregunta }}</h2>
         <div style="display: flex; gap: 30px; align-items: center;">
@@ -21,12 +20,10 @@
         </div>
     </div>
 
-    <!-- PREGUNTA -->
     <div style="text-align: center; margin-bottom: 20px;">
         <p style="font-size: 18px; background: rgba(255,255,255,.2); padding: 15px; border-radius: 10px; color: #fff; border: 2px solid #ffacd6;">{{ $pregActual['pregunta'] }}</p>
     </div>
 
-    <!-- OPCIONES -->
     <div style="display: flex; flex-direction: column; gap: 10px; margin: 15px 0;">
         @foreach($pregActual['opciones'] as $i => $opcion)
             <button class="respuesta-btn" data-indice="{{ $i }}" style="display: block; width: 100%; text-align: left; padding: 12px 15px; border-radius: 8px; background: rgba(255,255,255,.1); color: #fff; border: 2px solid rgba(255,172,214,.3); cursor: pointer; font-size: 16px; transition: all 0.3s ease;">
@@ -35,15 +32,32 @@
         @endforeach
     </div>
 
-    <!-- BOTONES DE NAVEGACIÓN -->
     <div style="display: flex; gap: 10px; justify-content: center;">
-        <a href="{{ route('pregunta', [$capitulo, max(1, $numPregunta - 1)]) }}"><button style="background: #FFACD6; color: #000; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Anterior</button></a>
+        
+        <a href="{{ route('pregunta', [$capitulo, max(1, $numPregunta - 1)]) }}">
+            <button style="background: transparent; color: #FFACD6; border: 2px solid #FFACD6; box-shadow: 0 0 10px #FFACD6; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s;">
+                Anterior
+            </button>
+        </a>
+
         @if($hasNext)
-            <a href="{{ route('pregunta', [$capitulo, $numPregunta + 1]) }}"><button style="background: #FFACD6; color: #000; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Següent</button></a>
+            <a href="{{ route('pregunta', [$capitulo, $numPregunta + 1]) }}">
+                <button style="background: transparent; color: #FFACD6; border: 2px solid #FFACD6; box-shadow: 0 0 10px #FFACD6; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s;">
+                    Següent
+                </button>
+            </a>
         @else
-            <button disabled style="opacity: 0.5; background: #FFACD6; color: #000; padding: 10px 20px; border: none; border-radius: 8px;">Següent</button>
+            <button disabled style="background: transparent; opacity: 0.5; color: #FFACD6; border: 2px solid #FFACD6; padding: 10px 20px; border-radius: 8px; font-weight: bold;">
+                Següent
+            </button>
         @endif
-        <a href="{{ route('nivells') }}"><button style="background: #28428C; color: #fff; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">Tornar a Nivells</button></a>
+
+        <a href="{{ route('nivells') }}">
+            <button style="background: transparent; color: #fff; border: 2px solid #28428C; box-shadow: 0 0 15px #28428C; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s;">
+                Tornar a Nivells
+            </button>
+        </a>
+
     </div>
 </div>
 
@@ -211,8 +225,8 @@ function mostrarResultadoFinal() {
                     <p style="font-size: 20px; margin-bottom: 30px;">Vides restants: ${vidas} ❤️</p>
                 </div>
                 <div style="margin-top: 30px; display: flex; gap: 15px; justify-content: center;">
-                    <a href="{{ route('pregunta', [$capitulo, 1]) }}" style="background: #FFF30E; color: #000; padding: 15px 40px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 18px; display: inline-block;">Reintentar Capítol</a>
-                    <a href="{{ route('nivells') }}" style="background: #28428C; color: #fff; padding: 15px 40px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 18px; display: inline-block;">Tornar a Capítols</a>
+                    <a href="{{ route('pregunta', [$capitulo, 1]) }}" style="background: transparent; color: #FFF30E; border: 2px solid #FFF30E; box-shadow: 0 0 10px #FFF30E; padding: 15px 40px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 18px; display: inline-block;">Reintentar Capítol</a>
+                    <a href="{{ route('nivells') }}" style="background: transparent; color: #fff; border: 2px solid #28428C; box-shadow: 0 0 15px #28428C; padding: 15px 40px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 18px; display: inline-block;">Tornar a Capítols</a>
                 </div>
             </div>
         `;
